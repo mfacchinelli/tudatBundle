@@ -179,7 +179,5 @@ if(USE_PAGMO)
 endif()
 
 add_subdirectory( "${PROJECTROOT}/tudatExampleApplications/templateApplication/TemplateApplication")
-add_subdirectory( "${PROJECTROOT}tudatApplications/spaceProject/spaceProjectAssignment1")
-add_subdirectory( "${PROJECTROOT}tudatApplications/spaceProject/spaceProjectAssignment2")
 add_subdirectory( "${PROJECTROOT}tudatApplications/Test")
 add_subdirectory( "${PROJECTROOT}tudatApplications/Thesis")
