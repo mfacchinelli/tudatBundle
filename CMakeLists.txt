@@ -22,14 +22,14 @@ project( TudatBundle )
 
 
 # Package options
-option(USE_CSPICE   "Build CSPICE libary, tudat with SPICE support and example applications." ON)
-option(USE_JSON     "Build JSON library." ON)
-option(USE_JSONCPP  "Build JSONCPP library and example applications." OFF)
-option(USE_NRLMSISE00 "Build NRLMISE-00 library and tudat with NRLMSISE support." ON)
-option(USE_SOFA     "Build Sofa library." ON)
-option(USE_PAGMO "Build PaGMO2 library. Forced to ON if optimization package is enabled" OFF)
-option(USE_PYGMO "Build PaGMO library with Python bindings." OFF)
-
+option(USE_CSPICE       "Build CSPICE libary, tudat with SPICE support and example applications." ON)
+option(USE_JSON         "Build JSON library." ON)
+option(USE_JSONCPP      "Build JSONCPP library and example applications." OFF)
+option(USE_NRLMSISE00   "Build NRLMISE-00 library and tudat with NRLMSISE support." ON)
+option(USE_SOFA         "Build Sofa library." ON)
+option(USE_PAGMO        "Build PaGMO2 library. Forced to ON if optimization package is enabled" OFF)
+option(USE_PYGMO        "Build PaGMO library with Python bindings." OFF)
+option(USE_SPARTA       "Build SPARTA library." ON)
 
 # Set root-directory for code to current source directory.
 set(PROJECTROOT "${CMAKE_CURRENT_SOURCE_DIR}/")
