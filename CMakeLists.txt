@@ -29,7 +29,6 @@ option(USE_NRLMSISE00   "Build NRLMISE-00 library and tudat with NRLMSISE suppor
 option(USE_SOFA         "Build Sofa library." ON)
 option(USE_PAGMO        "Build PaGMO2 library. Forced to ON if optimization package is enabled" OFF)
 option(USE_PYGMO        "Build PaGMO library with Python bindings." OFF)
-option(USE_SPARTA       "Build SPARTA library." ON)
 
 # Set root-directory for code to current source directory.
 set(PROJECTROOT "${CMAKE_CURRENT_SOURCE_DIR}/")
