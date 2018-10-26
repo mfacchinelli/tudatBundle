@@ -22,6 +22,7 @@ project( TudatBundle )
 
 
 # Package options
+<<<<<<< HEAD
 option(USE_CSPICE       "Build CSPICE libary, tudat with SPICE support and example applications." ON)
 option(USE_JSON         "Build JSON library." ON)
 option(USE_JSONCPP      "Build JSONCPP library and example applications." OFF)
@@ -29,6 +30,16 @@ option(USE_NRLMSISE00   "Build NRLMISE-00 library and tudat with NRLMSISE suppor
 option(USE_SOFA         "Build Sofa library." ON)
 option(USE_PAGMO        "Build PaGMO2 library. Forced to ON if optimization package is enabled" OFF)
 option(USE_PYGMO        "Build PaGMO library with Python bindings." OFF)
+=======
+option(USE_CSPICE   "Build CSPICE libary, tudat with SPICE support and example applications." ON)
+option(USE_JSON     "Build JSON library and example applications." ON)
+option(USE_NRLMSISE00 "Build NRLMISE-00 library and tudat with NRLMSISE support." ON)
+option(USE_SOFA     "Build Sofa library." ON)
+option(USE_PAGMO "Build PaGMO2 library. Forced to ON if optimization package is enabled" OFF)
+option(USE_PYGMO "Build PaGMO library with Python bindings." OFF)
+option(BUILD_WITH_ESTIMATION_TOOLS "Build Tudat with state estimation functionality." ON)
+
+>>>>>>> upstream/master
 
 # Set root-directory for code to current source directory.
 set(PROJECTROOT "${CMAKE_CURRENT_SOURCE_DIR}/")
@@ -39,13 +50,13 @@ enable_testing( )
 option(APPLE_INCLUDE_FORCE "Force include_directories on Apple too." ON)
 
 # Let CMake find our custom cmake modules/scritpts
-list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/external/CMake")
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/external/CMake" "${CMAKE_CURRENT_SOURCE_DIR}/tudat/Tudat/External/CMake")
 
 #
 # Boost
 #
 # Set the required boost components (for Tudat)
-set(BoostComponents filesystem system thread regex date_time unit_test_framework)
+set(BoostComponents filesystem system regex date_time unit_test_framework thread)
 # Add additional required boost componets for other libraries
 # if these are used.
 if(USE_PAGMO)
@@ -105,19 +116,6 @@ if(USE_JSON)
 endif()
 
 #
-# JSONCPP
-#
-# Add the JSONCPP project and build
-if(USE_JSONCPP)
-  option(JSONCPP_WITH_TESTS "Build JSONCPP tests." OFF)
-  option(JSONCPP_WITH_PKGCONFIG_SUPPORT "Bulid JSONCPP PKGCONFIG files." OFF)
-  set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/jsoncpp/lib CACHE PATH "Path for building JSONCPP library in.")
-  add_subdirectory( "${PROJECTROOT}/jsoncpp/")
-  # Unset library output dir to prevent screwing with other packages
-  unset(CMAKE_ARCHIVE_OUTPUT_DIRECTORY CACHE)
-endif()
-
-#
 # NRLMSISE
 #
 # Add the NRLMSISE project and build
@@ -164,15 +162,19 @@ elseif(USE_PYGMO)
     add_subdirectory( "${PROJECTROOT}pagmo2/" )
 endif()
 
+if(NOT BUILD_WITH_ESTIMATION_TOOLS)
+ add_definitions(-DBUILD_WITH_ESTIMATION_TOOLS=0)
+else()
+ add_definitions(-DBUILD_WITH_ESTIMATION_TOOLS=1)
+endif()
+
 #
 # Tudat and applications
 #
 set(TUDAT_BUILD_DIR "${PROJECTROOT}/tudat")
 add_subdirectory( "${PROJECTROOT}/tudat/Tudat/")
 add_subdirectory( "${PROJECTROOT}/tudatExampleApplications/satellitePropagatorExamples/SatellitePropagatorExamples/")
-if(USE_CSPICE AND USE_JSONCPP)
-  add_subdirectory( "${PROJECTROOT}/tudatExampleApplications/libraryExamples/SpiceAndJSON/")
-endif()
+
 if(USE_PAGMO)
   add_subdirectory( "${PROJECTROOT}/tudatExampleApplications/libraryExamples/PaGMOEx")
 endif()
